@@ -3,9 +3,13 @@ package main
 import (
 	"log"
 	"net/http"
+
+	"github.com/munnaMia/from-list/internals/model"
 )
 
-type Application struct{}
+type Application struct {
+	User model.User
+}
 
 func main() {
 	app := &Application{}
