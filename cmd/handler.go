@@ -1,7 +1,6 @@
 package main
 
 import (
-	"html/template"
 	"net/http"
 )
 
@@ -12,39 +11,63 @@ func (app *Application) home(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	files := []string{
+		"./ui/html/layout/base.html",
+		"./ui/html/partials/header.html",
+		"./ui/html/partials/footer.html",
+		"./ui/html/partials/nab.html",
+		"./ui/html/pages/home.html",
+	}
+
 	// Page render data.
 	data := map[string]any{
 		"Title": "Home Page",
 	}
 
-	tmpl := template.Must(template.ParseFiles("./ui/html/layout/base.html", "./ui/html/partials/header.html", "./ui/html/partials/footer.html", "./ui/html/partials/nab.html", "./ui/html/pages/home.html"))
+	tmpl := app.ParseTemp(files)
 
-	if err := tmpl.Execute(w, data); err != nil {
+	if err := tmpl.ExecuteTemplate(w, "base", data); err != nil {
 		panic(err)
 	}
 
 }
-func (app *Application) form(w http.ResponseWriter, r *http.Request)  {
+func (app *Application) form(w http.ResponseWriter, r *http.Request) {
+	files := []string{
+		"./ui/html/layout/base.html",
+		"./ui/html/partials/header.html",
+		"./ui/html/partials/footer.html",
+		"./ui/html/partials/nab.html",
+		"./ui/html/pages/form.html",
+	}
+
 	// Page render data.
 	data := map[string]any{
 		"Title": "Form Page",
 	}
 
-	tmpl := template.Must(template.ParseFiles("./ui/html/layout/base.html", "./ui/html/partials/header.html", "./ui/html/partials/footer.html", "./ui/html/partials/nab.html", "./ui/html/pages/form.html"))
+	tmpl := app.ParseTemp(files)
 
-	if err := tmpl.Execute(w, data); err != nil {
+	if err := tmpl.ExecuteTemplate(w, "base", data); err != nil {
 		panic(err)
 	}
 }
-func (app *Application) list(w http.ResponseWriter, r *http.Request)  {
+func (app *Application) list(w http.ResponseWriter, r *http.Request) {
 	// Page render data.
 	data := map[string]any{
 		"Title": "List Page",
 	}
 
-	tmpl := template.Must(template.ParseFiles("./ui/html/layout/base.html", "./ui/html/partials/header.html", "./ui/html/partials/footer.html", "./ui/html/partials/nab.html", "./ui/html/pages/list.html"))
+	files := []string{
+		"./ui/html/layout/base.html",
+		"./ui/html/partials/header.html",
+		"./ui/html/partials/footer.html",
+		"./ui/html/partials/nab.html",
+		"./ui/html/pages/list.html",
+	}
 
-	if err := tmpl.Execute(w, data); err != nil {
+	tmpl := app.ParseTemp(files)
+
+	if err := tmpl.ExecuteTemplate(w, "base", data); err != nil {
 		panic(err)
 	}
 }
@@ -53,10 +76,17 @@ func (app *Application) about(w http.ResponseWriter, r *http.Request) {
 	data := map[string]any{
 		"Title": "About Page",
 	}
+	files := []string{
+		"./ui/html/layout/base.html",
+		"./ui/html/partials/header.html",
+		"./ui/html/partials/footer.html",
+		"./ui/html/partials/nab.html",
+		"./ui/html/pages/about.html",
+	}
 
-	tmpl := template.Must(template.ParseFiles("./ui/html/layout/base.html", "./ui/html/partials/header.html", "./ui/html/partials/footer.html", "./ui/html/partials/nab.html", "./ui/html/pages/about.html"))
+	tmpl := app.ParseTemp(files)
 
-	if err := tmpl.Execute(w, data); err != nil {
+	if err := tmpl.ExecuteTemplate(w, "base", data); err != nil {
 		panic(err)
 	}
 }
