@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/munnaMia/from-list/internals/utils"
@@ -71,11 +70,11 @@ func (app *Application) fromInput(w http.ResponseWriter, r *http.Request) {
 	dataModel.Email = r.PostFormValue("user_email")
 	dataModel.Gender = r.PostFormValue("user_gender")
 	dataModel.Password = r.PostFormValue("user_password")
-	fmt.Println(dataModel) // temporary
 
-	err := utils.CreateIfNotExist(DBpath)
+	// write data to db
+	err := utils.WriteJson(dataModel, DBpath)
 	if err != nil {
-		http.Error(w, "Internal server error", http.StatusInternalServerError)
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 	}
 
 }

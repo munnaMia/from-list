@@ -1,1 +1,14 @@
-[]
+[
+ {
+  "name": "asd",
+  "email": "ad@gmail.com",
+  "gender": "Male",
+  "password": "adfsadf"
+ },
+ {
+  "name": "asdasdf",
+  "email": "aasdfasd@gmail.com",
+  "gender": "Male",
+  "password": "adfsadfdsfw"
+ }
+]

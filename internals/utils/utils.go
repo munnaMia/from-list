@@ -1,8 +1,12 @@
 package utils
 
 import (
+	"encoding/json"
+	"io"
 	"os"
 	"path/filepath"
+
+	"github.com/munnaMia/from-list/internals/model"
 )
 
 // Create file and directory if not exist.
@@ -40,4 +44,41 @@ func CreateIfNotExist(path string) error {
 		}
 	}
 	return nil // return nil if every thing goes well
+}
+
+func WriteJson(formData model.User, storagePath string) error {
+	err := CreateIfNotExist(storagePath) // check the file exist or not before writing
+	if err != nil {
+		return err
+	}
+
+	// read database
+	records, err := ReadJson(storagePath)
+	if err != nil {
+		return err
+	}
+
+	records = append(records, formData)
+
+	jsonFromData, err := json.MarshalIndent(records, "", " ")
+	if err != nil {
+		return err
+	}
+
+	absFilePath, err := filepath.Abs(storagePath)
+	if err != nil {
+		return err
+	}
+
+	file, err := os.Create(absFilePath)
+	if err != nil {
+		return err
+	}
+	defer file.Close()
+
+	_, err = file.Write(jsonFromData)
+	if err != nil {
+		return err
+	}
+	return nil
 }
