@@ -77,6 +77,24 @@ func (app *Application) fromInput(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 	}
 
+	// rendering confirmation massage.
+	data := map[string]any{
+		"Title": "confirmation page",
+	}
+
+	files := []string{
+		"./ui/html/layout/base.html",
+		"./ui/html/partials/header.html",
+		"./ui/html/partials/footer.html",
+		"./ui/html/partials/nab.html",
+		"./ui/html/pages/confirmation.html",
+	}
+
+	tmpl := app.ParseTemp(files)
+	if err := tmpl.ExecuteTemplate(w, "base", data); err != nil {
+		panic(err)
+	}
+
 }
 
 func (app *Application) list(w http.ResponseWriter, r *http.Request) {
