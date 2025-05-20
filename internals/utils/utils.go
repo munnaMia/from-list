@@ -82,3 +82,25 @@ func WriteJson(formData model.User, storagePath string) error {
 	}
 	return nil
 }
+
+func ReadJson(storagePath string) ([]model.User, error) {
+	var data []model.User
+
+	file, err := os.Open(storagePath)
+	if err != nil {
+		return nil, err
+	}
+	defer file.Close()
+
+	readFile, err := io.ReadAll(file)
+	if err != nil {
+		return nil, err
+	}
+
+	err = json.Unmarshal(readFile, &data)
+	if err != nil {
+		return nil, err
+	}
+
+	return data, nil
+}
