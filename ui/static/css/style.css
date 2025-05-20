@@ -75,3 +75,12 @@ button:hover {
     background: rgb(26, 26, 81);
     color: #ffffff;
 }
+
+table {
+    border: 2px solid rgb(9, 103, 254);
+}
+
+tr, td, th{
+    padding: 15px;
+    border-bottom: 1px solid #000000;
+}

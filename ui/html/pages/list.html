@@ -1,3 +1,25 @@
 {{define "content"}}
 <h2>list page</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th>Email</th>
+            <th>Gender</th>
+            <th>Password</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{range .Users}}
+        <tr>
+            <th>{{.Name}}</th>
+            <td>{{.Email}}</td>
+            <td>{{.Gender}}</td>
+            <td>{{.Password}}</td>
+        </tr>
+        {{end}}
+    </tbody>
+</table>
+
 {{end}}

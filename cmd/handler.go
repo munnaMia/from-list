@@ -84,10 +84,10 @@ func (app *Application) fromInput(w http.ResponseWriter, r *http.Request) {
 
 	files := []string{
 		"./ui/html/layout/base.html",
+		"./ui/html/pages/confirmation.html",
 		"./ui/html/partials/header.html",
 		"./ui/html/partials/footer.html",
 		"./ui/html/partials/nab.html",
-		"./ui/html/pages/confirmation.html",
 	}
 
 	tmpl := app.ParseTemp(files)
@@ -98,9 +98,14 @@ func (app *Application) fromInput(w http.ResponseWriter, r *http.Request) {
 }
 
 func (app *Application) list(w http.ResponseWriter, r *http.Request) {
+	userData , err := utils.ReadJson(DBpath)
+	if err != nil {
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+	}
 	// Page render data.
 	data := map[string]any{
 		"Title": "List Page",
+		"Users": userData,
 	}
 
 	files := []string{
