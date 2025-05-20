@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
 )
 
@@ -51,6 +52,21 @@ func (app *Application) form(w http.ResponseWriter, r *http.Request) {
 		panic(err)
 	}
 }
+
+func (app *Application) fromInput(w http.ResponseWriter, r *http.Request) {
+	// receive data from the form
+	// store that into a JSON db
+	dataModel := app.User
+
+	dataModel.Name = r.PostFormValue("user_name")
+	dataModel.Email = r.PostFormValue("user_email")
+	dataModel.Gender = r.PostFormValue("user_gender")
+	dataModel.Password = r.PostFormValue("user_password")
+
+	fmt.Println(dataModel)
+
+}
+
 func (app *Application) list(w http.ResponseWriter, r *http.Request) {
 	// Page render data.
 	data := map[string]any{
@@ -71,6 +87,7 @@ func (app *Application) list(w http.ResponseWriter, r *http.Request) {
 		panic(err)
 	}
 }
+
 func (app *Application) about(w http.ResponseWriter, r *http.Request) {
 	// Page render data.
 	data := map[string]any{
