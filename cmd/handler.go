@@ -3,7 +3,11 @@ package main
 import (
 	"fmt"
 	"net/http"
+
+	"github.com/munnaMia/from-list/internals/utils"
 )
+
+const DBpath = "internals/storage/formDb.json"
 
 func (app *Application) home(w http.ResponseWriter, r *http.Request) {
 
@@ -54,7 +58,12 @@ func (app *Application) form(w http.ResponseWriter, r *http.Request) {
 }
 
 func (app *Application) fromInput(w http.ResponseWriter, r *http.Request) {
-	// receive data from the form
+	if r.Method != http.MethodPost {
+		w.Header().Set("Allow", "POST")
+		http.Error(w, "Method Not Allow", http.StatusMethodNotAllowed)
+		return
+	}
+
 	// store that into a JSON db
 	dataModel := app.User
 
@@ -62,8 +71,12 @@ func (app *Application) fromInput(w http.ResponseWriter, r *http.Request) {
 	dataModel.Email = r.PostFormValue("user_email")
 	dataModel.Gender = r.PostFormValue("user_gender")
 	dataModel.Password = r.PostFormValue("user_password")
+	fmt.Println(dataModel) // temporary
 
-	fmt.Println(dataModel)
+	err := utils.CreateIfNotExist(DBpath)
+	if err != nil {
+		http.Error(w, "Internal server error", http.StatusInternalServerError)
+	}
 
 }
 
