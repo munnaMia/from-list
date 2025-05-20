@@ -58,3 +58,20 @@ footer > ul > li:hover {
     background-color: rgb(71, 52, 52);
     color: white;
 }
+
+button {
+    border: 1px solid black;
+    background: rgb(165, 165, 234);
+    color: black;
+    font-weight: 600;
+    cursor: pointer;
+    transition: ease;
+    padding: 4px;
+    margin: 5px;
+    border-radius: 3px;
+}
+
+button:hover {
+    background: rgb(26, 26, 81);
+    color: #ffffff;
+}
